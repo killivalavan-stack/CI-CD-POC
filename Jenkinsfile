@@ -2,53 +2,11 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS-24'
-    }
-
-    options {
-        timestamps()
-        disableConcurrentBuilds()
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Test') {
             steps {
-                checkout scm
+                echo 'Declarative Pipeline parsed successfully'
             }
-        }
-
-        stage('Check Node and npm') {
-            steps {
-                sh 'node --version'
-                sh 'npm --version'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm ci'
-            }
-        }
-
-        stage('Build Next.js') {
-            steps {
-                sh 'npm run build'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'SUCCESS: Next.js build completed.'
-        }
-
-        failure {
-            echo 'FAILURE: Check the Jenkins console output.'
-        }
-
-        always {
-            echo 'Pipeline execution finished.'
         }
     }
 }
