@@ -2,10 +2,21 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS-24'
+    }
+
     stages {
-        stage('Test') {
+        stage('Checkout') {
             steps {
-                echo 'Declarative Pipeline parsed successfully'
+                checkout scm
+            }
+        }
+
+        stage('Check Node.js') {
+            steps {
+                sh 'node --version'
+                sh 'npm --version'
             }
         }
     }
